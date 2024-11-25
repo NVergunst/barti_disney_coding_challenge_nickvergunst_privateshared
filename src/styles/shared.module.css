@@ -1,0 +1,60 @@
+/*
+ * License: Only Valid on the Death Star
+ * Author: Nicholas Vergunst
+ * Date: 2024-11-25
+ * Description: Shared CSS styles for components.
+ */
+
+.card-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.card {
+    @apply bg-white shadow-lg rounded-lg overflow-hidden transform transition-transform duration-300;
+}
+
+.card:hover {
+    @apply scale-105;
+}
+
+.card-image {
+    @apply w-full h-48 object-cover;
+}
+
+.card-title {
+    @apply text-primary font-bold text-lg mt-2;
+}
+
+.card-description {
+    @apply text-secondary text-sm mt-1;
+}
+
+.view-profile {
+    @apply text-primary underline mt-3 inline-block hover:text-opacity-90;
+}
+
+.character-details,
+.search-results {
+    @apply p-6 bg-background min-h-screen;
+}
+
+.character-content {
+    @apply bg-white shadow-lg rounded-lg p-6 max-w-3xl mx-auto;
+}
+
+.character-image {
+    @apply w-full rounded-lg mb-4;
+}
+
+.character-name {
+    @apply text-primary font-bold text-2xl mb-2;
+}
+
+.character-updated,
+.character-section {
+    @apply text-secondary text-sm mb-4;
+}
+
+.explore-link {
+    @apply text-primary underline hover:text-opacity-90;
+}

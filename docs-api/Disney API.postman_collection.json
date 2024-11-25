@@ -1,0 +1,750 @@
+{
+	"info": {
+		"_postman_id": "6c63e3f4-5198-488d-9000-5a6893d4fed2",
+		"name": "Disney API",
+		"description": "This API will help you **find, create, update and delete** Disney characters and the different films or series where they have been!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15397539",
+		"_collection_link": "https://www.postman.com/lunar-firefly-959408/public-api/collection/tirtchq/disney-api?action=share&source=collection_link&creator=15397539"
+	},
+	"item": [
+		{
+			"name": "Character",
+			"item": [
+				{
+					"name": "GET ALL CHARACTERS",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/characters",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "fullName[eq]",
+									"value": "Bambi",
+									"description": "Search by character name",
+									"disabled": true
+								},
+								{
+									"key": "age[gte]",
+									"value": "5",
+									"description": "Filter by age",
+									"disabled": true
+								},
+								{
+									"key": "weight[lt]",
+									"value": "40",
+									"description": "Filter by weight",
+									"disabled": true
+								},
+								{
+									"key": "films",
+									"value": "Bambi",
+									"description": "Filter by film",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## This endpoint will return all characters with names and pictures.\n\n### Usage:\n\nFollowing operations for query filtering are available by field:\n\n+ **[eq] / [ne]**: equal / not equal to *value*\n+ **[bt]/[nbt]**: between / not in between *value 1,value 2*\n+ **[lt]/[lte]** : lower than / lower than or equal *value*\n+ **[gt]/[gte]**: greater than / greater than or equal *value*\n\nIt is possible to order films in ascending or descending order by any field passing as a parameter:\n\n**orderBy** = *field*,*ASC or DESC*"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD CHARACTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"fullName\" : \"Winnie Pooh\",\r\n\"age\": 2,\r\n\"weight\": 70.5,\r\n\"history\": \"Yellow bear who loves honey\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/character",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"character"
+							]
+						},
+						"description": "## This endpoint will add a character to the DB.\n\n### Usage:\n\nFollowing fields can be passed on the body as JSON:\n+ fullName **<required>**\n+ age\n+ weight\n+ history\n+ films\n\nA picture field will be generated automatically from the *fullName* field."
+					},
+					"response": []
+				},
+				{
+					"name": "GET CHARACTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/character/85",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"character",
+								"85"
+							]
+						},
+						"description": "## This endpoint will return one specific character, filtering by the characterId passed on the URL\n### Usage:\nA valid *characterId* must be passed as a parameter on the URL as follow:\n\n**/character/:characterId**"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE CHARACTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"age\": \"9\",\r\n\"films\":\"Toy Story\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/character/85",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"character",
+								"85"
+							]
+						},
+						"description": "## This endpoint will update an specific character with the values passed in the body.\n\n### Usage:\n\nA valid *characterId* must be passed as a parameter on the URL as follow:\n\n**/character/:characterId**\n\nIn the body, the following parameters can be passed as JSON:\n\n+ fullName\n+ age\n+ weight\n+ history\n+ films\n\n**API will erase any previous value and replaced with the ones passed in the body**"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CHARACTER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/character/96",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"character",
+								"96"
+							]
+						},
+						"description": "## This endpoint will delete character as per characterId passed in the URL.\n\n### Usage\n\nA valid *characterId* must be passed as a parameter on the URL as follow:\n\n**/character/:characterId**"
+					},
+					"response": []
+				}
+			],
+			"description": "This collection of endpoints will help you find, filter, create, update and delete Disney characters"
+		},
+		{
+			"name": "Film",
+			"item": [
+				{
+					"name": "GET ALL FILMS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/film",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"film"
+							],
+							"query": [
+								{
+									"key": "title[eq]",
+									"value": "Bambi",
+									"disabled": true
+								},
+								{
+									"key": "genre[eq]",
+									"value": "Comedy",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "releaseDate,DESC",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## This endpoint will return all films with their title, picture and release date.\n\n### Usage:\n\nFollowing operations for query filtering are available by field:\n\n+ **[eq] / [ne]**: equal / not equal to *value*\n+ **[bt]/[nbt]**: between / not in between *value 1,value 2*\n+ **[lt]/[lte]** : lower than / lower than or equal *value*\n+ **[gt]/[gte]**: greater than / greater than or equal *value*\n\nIt is possible to order films in ascending or descending order by any field passing as a parameter:\n\n**orderBy** = *field*,*ASC or DESC*"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD FILM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\" : \"The Lion King\",\r\n\"releaseDate\": \"1994-06-24\",\r\n\"genre\":\"Drama\",\r\n\"score\": 4}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/film",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"film"
+							]
+						},
+						"description": "## This endpoint will add a film to the DB.\n\n### Usage:\n\nFollowing fields can be passed on the body as JSON:\n+ title **<required>**\n+ releaseDate\n+ genre\n+ score\n\n\nA picture field will be generated automatically from the *title* field."
+					},
+					"response": []
+				},
+				{
+					"name": "GET FILM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/film/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"film",
+								"2"
+							]
+						},
+						"description": "## This endpoint will return one specific flm, filtering by the filmId passed on the URL\n### Usage:\nA valid *filmId* must be passed as a parameter on the URL as follow:\n\n**/film/:filmId**"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE FILM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"genre\" : \"Comedy\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/film/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"film",
+								"2"
+							]
+						},
+						"description": "## This endpoint will update an specific film with the values passed in the body.\n\n### Usage:\n\nA valid *filmdId* must be passed as a parameter on the URL as follow:\n\n**/film/:filmId**\n\nIn the body, the following parameters can be passed as JSON:\n\n+ title\n+ releaseDate\n+ genre\n+ score\n\n**API will erase any previous value and replaced with the ones passed in the body**"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE FILM",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/film/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"film",
+								"3"
+							]
+						},
+						"description": "## This endpoint will delete film as per filmId passed in the URL.\n\n### Usage\n\nA valid *filmId* must be passed as a parameter on the URL as follow:\n\n**/film/:filmId**"
+					},
+					"response": []
+				}
+			],
+			"description": "This collection of endpoints will help you find, order, create, update and delete Disney films from the DB."
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GET ALL USERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							],
+							"query": [
+								{
+									"key": "email[eq]",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "role[eq]",
+									"value": "user",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "createdAt,DESC",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## This endpoint will return all users with names and pictures.\n\n### Usage:\n\nFollowing operations for query filtering are available by field:\n\n+ **[eq] / [ne]**: equal / not equal to *value*\n\n\nIt is possible to order films in ascending or descending order by any field passing as a parameter:\n\n**orderBy** = *field*,*ASC or DESC*"
+					},
+					"response": []
+				},
+				{
+					"name": "ADD USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"test@mail.com\",\r\n\"password\":\"12345678\",\r\n\"passwordConfirmation\":\"12345678\",\r\n\"role\":\"user\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user"
+							]
+						},
+						"description": "## This endpoint will add a user to the DB.\n\n### Usage:\n\nFollowing fields can be passed on the body as JSON:\n+ email **required**\n+ password **required**\n+ passwordConfirmation **required**\n+ role *can be user or admin*"
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"test@gmail.com\",\r\n\"password\":\"newpass\",\r\n\"passwordConfirmation\":\"newpass\",\r\n\"role\":\"admin\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/user/9",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"9"
+							]
+						},
+						"description": "## This endpoint will add a user to the DB.\n\n### Usage:\n\nFollowing fields can be passed on the body as JSON:\n+ email **required**\n+ password **required**\n+ passwordConfirmation **required**\n+ role *can be user or admin*"
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/user/27",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"27"
+							],
+							"query": [
+								{
+									"key": "title[eq]",
+									"value": "Bambi",
+									"disabled": true
+								},
+								{
+									"key": "genre[eq]",
+									"value": "Comedy",
+									"disabled": true
+								}
+							]
+						},
+						"description": "## This endpoint will return one specific flm, filtering by the userId passed on the URL\n### Usage:\nA valid *userId* must be passed as a parameter on the URL as follow:\n\n**/user/:userId**"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE USER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/user/27",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"27"
+							]
+						},
+						"description": "## This endpoint will delete user as per userId passed in the URL.\n\n### Usage\n\nA valid *userId* must be passed as a parameter on the URL as follow:\n\n**/user/:userId**"
+					},
+					"response": []
+				}
+			],
+			"description": "This endpoints collection is intended to be used only by admin users."
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "LOGIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"token\", pm.response.json().token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"test@mail.com\",\r\n\"password\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/user/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"login"
+							]
+						},
+						"description": "### This endpoint return a valid token if the data passed is valid.\n\n### Usage:\n\nThe following fields have to be provided in the body:\n\n+ email\n+ password\n\nA token with JSON Web Token format will be returned."
+					},
+					"response": []
+				},
+				{
+					"name": "SIGN UP",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"token\", pm.response.json().token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"test@mail.com\",\r\n\"password\":\"12345678\",\r\n\"passwordConfirmation\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/user/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"signup"
+							]
+						},
+						"description": "## This endpoint allows a user to sign up to the API.\n\n### Usage:\n\nFollowing fields have to be passed in the body:\n\n+ email\n+ password \n+ passwordConfirmation *must have same value than password*"
+					},
+					"response": []
+				}
+			],
+			"description": "This collection of endpoints refer to security concerns."
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "https://api.disneyapi.dev"
+		}
+	]
+}
